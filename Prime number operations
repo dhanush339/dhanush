@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+bool isPrime(int n) {
+    if (n <= 1)
+        return false;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0)
+            return false;
+    }
+    return true;
+}
+
+void generatePrimes(int limit) {
+    printf("Prime numbers up to %d:\n", limit);
+    for (int i = 2; i <= limit; i++) {
+        if (isPrime(i))
+            printf("%d ", i);
+    }
+    printf("\n");
+}
+
+int findNthPrime(int n) {
+    int count = 0, number = 1;
+    while (count < n) {
+        number++;
+        if (isPrime(number))
+            count++;
+    }
+    return number;
+}
+
+void primeMenu() {
+    int choice;
+    do {
+        printf("\nPrime Number Operations\n");
+        printf("1. Check if a number is prime\n");
+        printf("2. Generate prime numbers up to a limit\n");
+        printf("3. Find the nth prime number\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: {
+                int num;
+                printf("Enter a number: ");
+                scanf("%d", &num);
+                if (isPrime(num))
+                    printf("%d is a prime number.\n", num);
+                else
+                    printf("%d is not a prime number.\n", num);
+                break;
+            }
+            case 2: {
+                int limit;
+                printf("Enter the limit: ");
+                scanf("%d", &limit);
+                generatePrimes(limit);
+                break;
+            }
+            case 3: {
+                int n;
+                printf("Enter the value of n: ");
+                scanf("%d", &n);
+                printf("The %dth prime number is %d.\n", n, findNthPrime(n));
+                break;
+            }
+            case 4:
+                printf("Exiting the program.\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    } while (choice != 4);
+}
+
+int main() {
+    printf("Welcome to the Prime Number Program!\n");
+    primeMenu();
+    return 0;
+}
